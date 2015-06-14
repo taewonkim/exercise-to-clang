@@ -27,7 +27,7 @@ int main(argc, argv)
   bMax = INDEX_SIZE(B);
   cMax = INDEX_SIZE(C);
 
-  while( (nRes = reCalc()) > 0 ) 
+  while( (nRes = reCalc()) != NONE ) 
     if(nRes == 2)
       reDisp();
 
