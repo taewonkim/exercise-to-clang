@@ -12,8 +12,10 @@ static int gi = 0, gj = 0, gk = 0;
 
 enum RES { NONE = 0, CONTINUE, FINDED };
 
-enum RES reCalc();
-int reSum();
+static enum RES reCalc();
+static void reNext(enum RES*);
+static int reSum();
+static void reDisp();
 
 int main(argc, argv)
   int argc;
@@ -26,21 +28,29 @@ int main(argc, argv)
   cMax = INDEX_SIZE(C);
 
   while( (nRes = reCalc()) > 0 ) 
-  {
     if(nRes == 2)
-      printf("A = %02d, B = %02d, C = %02d = %d\n", A[ci], B[cj], C[ck], reSum());
-  }
+      reDisp();
 
   return 0;
 }
 
-enum RES reCalc()
+static enum RES reCalc()
 {
   enum RES aRes = CONTINUE;
 
   if((A[gi] + B[gj] + C[gk]) == 0)
-    ci = gi, cj = gj, ck = gk, aRes = FINDED;
+    ci = gi, 
+      cj = gj, 
+        ck = gk, 
+          aRes = FINDED;
+    
+  reNext(&aRes);
+  
+  return aRes;
+}
 
+static void reNext(enum RES* aRes)
+{
   if(gk < cMax)
     gk++;
   else
@@ -55,16 +65,21 @@ enum RES reCalc()
       if(gi < aMax) gi++;
       else
       {
-        aRes = NONE;
+        *aRes = NONE;
         goto LL;
       }
     }
   }
 LL:
-  return aRes;
+  return;
 }
 
-int reSum() 
+static int reSum() 
 { 
   return A[ci] + B[cj] + C[ck];
+}
+
+static void reDisp()
+{
+  printf("A = %02d, B = %02d, C = %02d = %d\n", A[ci], B[cj], C[ck], reSum());
 }
