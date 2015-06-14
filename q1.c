@@ -2,15 +2,17 @@
 
 #define INDEX_SIZE(X) (((sizeof(X)) / sizeof(int)) - 1)
 
+#define ZERO          (0)
+
 static int A[] = {-1, 0, 1};
 static int B[] = { 1, 2, 3};
 static int C[] = {-2, 1, 2};
 
-static int aMax = 0, bMax = 0, cMax = 0;
-static int ci = 0, cj = 0, ck = 0;
-static int gi = 0, gj = 0, gk = 0;
+static int aMax = ZERO, bMax = ZERO, cMax = ZERO;
+static int ci = ZERO, cj = ZERO, ck = ZERO;
+static int gi = ZERO, gj = ZERO, gk = ZERO;
 
-enum RES { NONE = 0, CONTINUE, FINDED };
+enum RES { NONE = ZERO, CONTINUE, FINDED };
 
 static enum RES reCalc();
 static void reNext(enum RES*);
@@ -21,24 +23,24 @@ int main(argc, argv)
   int argc;
   char** argv;
 {
-  int nRes = 0;
+  int nRes = ZERO;
 
   aMax = INDEX_SIZE(A);
   bMax = INDEX_SIZE(B);
   cMax = INDEX_SIZE(C);
 
   while( (nRes = reCalc()) != NONE ) 
-    if(nRes == 2)
+    if(nRes == FINDED)
       reDisp();
 
-  return 0;
+  return ZERO;
 }
 
 static enum RES reCalc()
 {
   enum RES aRes = CONTINUE;
 
-  if((A[gi] + B[gj] + C[gk]) == 0)
+  if((A[gi] + B[gj] + C[gk]) == ZERO)
     ci = gi, 
       cj = gj, 
         ck = gk, 
@@ -55,17 +57,20 @@ static void reNext(enum RES* aRes)
     gk++;
   else
   {
-    gk = 0;
+    gk = ZERO;
 
     if(gj < bMax) gj++;
     else
     {
-      gj = 0;
+      gj = ZERO;
 
       if(gi < aMax) gi++;
       else
       {
         *aRes = NONE;
+        gk = ZERO;
+        gj = ZERO;
+        gi = ZERO;
         goto LL;
       }
     }
