@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define INDEX_SIZE(X) (((sizeof(X)) / sizeof(int)) - 1)
+#define SIZE(X) (((sizeof(X)) / sizeof(int)) - 1)
 
 #define ZERO          (0)
 
@@ -25,9 +25,9 @@ int main(argc, argv)
 {
   int nRes = ZERO;
 
-  aMax = INDEX_SIZE(A);
-  bMax = INDEX_SIZE(B);
-  cMax = INDEX_SIZE(C);
+  aMax = SIZE(A);
+  bMax = SIZE(B);
+  cMax = SIZE(C);
 
   while( (nRes = reCalc()) != NONE ) 
     if(nRes == FINDED)
